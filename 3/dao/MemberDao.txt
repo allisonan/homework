@@ -1,0 +1,23 @@
+package dao;
+
+import java.util.List;
+
+import model.Member;
+
+
+
+public interface MemberDao {
+	//c
+	void addMember(String name,String nickname,String memberID,String password,String phone,String email);
+	void addMember(Member m);
+	//r
+	List<Member> queryAll();//查全部資料
+	String queryAll2();//字串方式顯示全部資料
+	Member queryMemberById(int id);//用ID尋找單筆資料
+	Member queryMember(String username,String name);//登入查詢
+	Member queryMember(String username);//註冊查詢
+	//u
+	void updateMember(Member m);
+	//d
+	void deleteMember(int id);
+}

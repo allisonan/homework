@@ -1,0 +1,83 @@
+package controller.check;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class FinishUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	/**
+	 * @wbp.nonvisual location=-29,11
+	 */
+	private final JPanel panel = new JPanel();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FinishUI frame = new FinishUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FinishUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 128, 192));
+		panel_1.setBounds(0, 10, 436, 253);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Dream Air 祝您旅途平安");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lblNewLabel.setBounds(76, 101, 324, 73);
+		panel_1.add(lblNewLabel);
+		
+		JLabel lbluejt = new JLabel("訂購完成");
+		lbluejt.setForeground(new Color(0, 0, 64));
+		lbluejt.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbluejt.setBounds(162, 27, 109, 73);
+		panel_1.add(lbluejt);
+		
+	/*Close*/
+		JButton btnNewButton = new JButton("離開");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+
+			}
+		});
+		btnNewButton.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		btnNewButton.setBounds(173, 200, 77, 29);
+		panel_1.add(btnNewButton);
+	}
+
+}

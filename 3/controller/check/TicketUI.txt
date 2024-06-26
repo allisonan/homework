@@ -1,0 +1,211 @@
+package controller.check;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import model.CheckIn;
+import model.Member;
+import util.Cal;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import javax.swing.Timer;
+
+public class TicketUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TicketUI frame = new TicketUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public TicketUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 635, 541);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 128, 192));
+		panel.setBounds(0, 0, 629, 504);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("歡迎回到 Dream Air 訂票系統");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 28));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setBounds(139, 28, 377, 53);
+		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("去程日期與航線");
+		lblNewLabel_1.setForeground(new Color(64, 0, 64));
+		lblNewLabel_1.setFont(new Font("微軟正黑體", Font.BOLD, 22));
+		lblNewLabel_1.setBounds(45, 91, 189, 53);
+		panel.add(lblNewLabel_1);
+	
+	
+		
+		
+		JLabel lblNewLabel_2 = new JLabel("所有航線均含手提行李10公斤");
+		lblNewLabel_2.setForeground(new Color(0, 0, 160));
+		lblNewLabel_2.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblNewLabel_2.setBounds(31, 424, 377, 53);
+		panel.add(lblNewLabel_2);
+	
+		
+		JLabel lu = new JLabel("托運行李");
+		lu.setForeground(new Color(64, 0, 64));
+		lu.setFont(new Font("微軟正黑體", Font.BOLD, 22));
+		lu.setBounds(81, 224, 189, 53);
+		panel.add(lu);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("特別餐點");
+		lblNewLabel_1_2_1.setForeground(new Color(64, 0, 64));
+		lblNewLabel_1_2_1.setFont(new Font("微軟正黑體", Font.BOLD, 22));
+		lblNewLabel_1_2_1.setBounds(81, 287, 189, 53);
+		panel.add(lblNewLabel_1_2_1);
+		
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("特別協助");
+		lblNewLabel_1_2_1_1.setForeground(new Color(64, 0, 64));
+		lblNewLabel_1_2_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 22));
+		lblNewLabel_1_2_1_1.setBounds(81, 350, 189, 53);
+		panel.add(lblNewLabel_1_2_1_1);
+	
+	/*即時更新日期與時間*/
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        JLabel lblDateTime = new JLabel("目前日期與時間: " + LocalDateTime.now().format(formatter));
+        lblDateTime.setBackground(new Color(0, 0, 160));
+        lblDateTime.setFont(new Font("微軟正黑體", Font.PLAIN, 16));
+        lblDateTime.setForeground(new Color(64, 0, 128));
+        lblDateTime.setBounds(326, 10, 333, 30);
+        panel.add(lblDateTime);
+
+       
+        ActionListener updateDateTime = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                lblDateTime.setText("現在日期時間: " + LocalDateTime.now().format(formatter));
+            }
+        };
+
+        
+        Timer timer = new Timer(1000, updateDateTime);
+        timer.start();	
+		/*去程下拉選單*/	
+		JComboBox outboundTicket = new JComboBox<>(new String[]
+				{"2024/08/31 DR 201 TPE 0715-NRT 1135", 
+				"2024/08/31 DR 198 TPE 0750-BKK 1035",
+				"2024/09/01 DR 205 TPE 1035-ICN 1400",
+				"2024/09/01 DR 307 TPE 1410-KIX 1755",
+				"2024/09/02 DR 112 TPE 0750-HKG 0945",});
+		String selectedItem1 = outboundTicket.getSelectedItem().toString();
+		outboundTicket.setFont(new Font("微軟正黑體", Font.BOLD, 17));
+
+		outboundTicket.setBounds(217, 91, 377, 40);
+		panel.add(outboundTicket);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("回程日期與航線");
+		lblNewLabel_1_1.setForeground(new Color(64, 0, 64));
+		lblNewLabel_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 22));
+		lblNewLabel_1_1.setBounds(45, 156, 189, 53);
+		panel.add(lblNewLabel_1_1);
+		
+	/*回程下拉選單*/		
+		JComboBox returnTicket = new JComboBox<>(new String[]
+				{"2024/09/03 DR 201 NRT 1810 -TPE 2055 ", 
+				"2024/09/03 DR 155 BKK 1740-TPE 2220",
+				"2024/09/05 DR 301 ICN 0750-TPE 0925",
+				"2024/09/06 DR 207 KIX 1455-TPE 1715",
+				"2024/09/07 DR 203 HKG 1815-TPE 2015",});
+		String selectedItem2 = returnTicket.getSelectedItem().toString();
+		returnTicket.setFont(new Font("微軟正黑體", Font.BOLD, 17));
+		
+		
+		returnTicket.setBounds(217, 164, 377, 40);
+		panel.add(returnTicket);
+		
+
+	
+		
+	/*行李選擇*/	
+		JComboBox luggage = new JComboBox<>(new String[]
+				{"0kg (7,000哩)", 
+				"10kg (8,000哩)",
+				"20kg (9,000哩)",
+				"30kg (10,000哩)"});
+		luggage.setFont(new Font("微軟正黑體", Font.BOLD, 17));
+		luggage.setBounds(217, 225, 377, 40);
+		panel.add(luggage);
+		
+	/*特殊餐點選擇*/	
+		JComboBox meal = new JComboBox<>(new String[]
+				{"無","素食餐", "海鮮餐","水果餐","低脂餐","無麩質餐","嬰幼兒餐",});
+		meal.setFont(new Font("微軟正黑體", Font.BOLD, 17));
+		meal.setBounds(217, 288, 377, 40);
+		panel.add(meal);
+		
+	/*特殊服務選擇*/	
+		JComboBox help = new JComboBox<>(new String[]
+		{"無","孕婦","行動不便","幼兒獨自搭機","兩歲以下嬰幼兒同行",});
+		help.setFont(new Font("微軟正黑體", Font.BOLD, 17));
+		help.setBounds(217, 358, 377, 40);
+		panel.add(help);
+		
+		
+		/*確認訂位*/	
+		JButton btnNewButton = new JButton("確認訂位");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String OutboundTicket=(String) outboundTicket.getSelectedItem();
+				String ReturnTicket=(String)  returnTicket.getSelectedItem();
+				String Luggage= (String) luggage.getSelectedItem();
+				String Meal= (String) meal.getSelectedItem();
+				String Help= (String) help.getSelectedItem();	
+				
+								
+				CheckIn ch = new CheckIn(OutboundTicket, ReturnTicket, Luggage, Meal, Help);
+				Cal.saveFile("CheckIn.txt", ch);
+				ConfirmUI c=new ConfirmUI();
+				c.setVisible(true);
+				dispose();	
+			}
+		});
+		btnNewButton.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		btnNewButton.setBounds(474, 435, 116, 33);
+		panel.add(btnNewButton);
+	}
+}

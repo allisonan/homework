@@ -1,0 +1,184 @@
+package controller.mbti;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import dao.Impl.MBTIDaoImpl;
+import dao.Impl.MemberDaoImpl;
+import model.MBTI;
+import model.Member;
+import util.Cal;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+
+public class TestUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TestUI frame = new TestUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public TestUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 519);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(222, 247, 254));
+		panel.setBounds(0, 0, 436, 482);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("MBTI 16型人格「極簡版」測驗");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel.setBounds(85, 10, 310, 44);
+		panel.add(lblNewLabel);
+		
+		JLabel lblTokyoDisneyland = new JLabel("1.你在下列哪種情況比較能獲得能量？");
+		lblTokyoDisneyland.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblTokyoDisneyland.setBounds(33, 55, 274, 44);
+		panel.add(lblTokyoDisneyland);
+		
+		JLabel lblTokyoDisneyseaday = new JLabel("2.當你學習新事物時，你傾向？");
+		lblTokyoDisneyseaday.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblTokyoDisneyseaday.setBounds(33, 109, 274, 44);
+		panel.add(lblTokyoDisneyseaday);
+		
+		JLabel lblTeamlab = new JLabel("3.當你在溝通時，你傾向？");
+		lblTeamlab.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblTeamlab.setBounds(33, 174, 274, 44);
+		panel.add(lblTeamlab);
+	
+	
+		JTextArea outputshow = new JTextArea();
+		outputshow.setBounds(10, 340, 416, 132);
+		panel.add(outputshow);
+	
+	
+	
+		
+	/*送出訂單*/	
+		JButton btnNewButton = new JButton("確認送出");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MBTIUI c=new MBTIUI();
+				c.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("微軟正黑體", Font.BOLD, 12));
+		btnNewButton.setBounds(237, 311, 85, 23);
+		panel.add(btnNewButton);
+		
+		JLabel lblTeamlab_1 = new JLabel("4.出國旅遊之前，你通常會？");
+		lblTeamlab_1.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblTeamlab_1.setBounds(33, 236, 274, 44);
+		panel.add(lblTeamlab_1);
+		
+		JComboBox one = new JComboBox<>(new String[]
+				{"（I）獨處，一個人追劇打電動", 
+				"（E）出去玩，或和朋友或家人相聚",});
+		one.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		one.setBounds(65, 92, 310, 23);
+		panel.add(one);
+		
+		JComboBox<String> two = new JComboBox<>(new String[]
+				{"（N）天馬行空，喜歡開放性思考", 
+				"（S）依照經驗，需要明確方向",});
+		
+		two.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		two.setBounds(65, 153, 310, 23);
+		panel.add(two);
+		
+		JComboBox<String> three = new JComboBox<>(new String[]
+				{"（T）先看這件事有沒有合乎邏輯或公平性", 
+				"（F）先確認對方感受，希望和諧相處",});
+
+		three.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		three.setBounds(65, 218, 310, 23);
+		panel.add(three);
+		
+		JComboBox<String> four = new JComboBox<>(new String[]
+				{"（J）列好每個行程，並按照計畫進行", 
+				"（P）去到那裡再說，當天看心情決定",});
+		four.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		four.setBounds(65, 278, 310, 23);
+		panel.add(four);
+		
+		
+		/*顯示測驗結果*/	
+		JButton btnNewButton_1 = new JButton("顯示結果");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			String selectedOne = (String) one.getSelectedItem();
+			String selectedTwo = (String) two.getSelectedItem();
+			String selectedThree = (String) three.getSelectedItem();
+			String selectedFour = (String) four.getSelectedItem();
+			
+			Member member =(Member)(Cal.readFile("member.txt"));
+
+                outputshow.setText( "\tMBTI 16型人格「極簡版」測驗結果"+
+                		"\n-------------------------------------------------------------------------------------------------------------"+
+                		"\n\tmember：" +member.getMemberno() + 
+                		"\n\tE/I：" +selectedOne + 
+                		"\n\tN/S：" + selectedTwo + 
+                        "\n\tT/F：" + selectedThree +
+                        "\n\tJ/P：" + selectedFour );
+                
+                MBTI mb = new MBTI(member.getMemberno(),selectedOne,selectedTwo,selectedThree,selectedFour);
+				
+				new MBTIDaoImpl().add(mb);
+      
+				
+			}
+		});
+				
+			
+		btnNewButton_1.setFont(new Font("微軟正黑體", Font.BOLD, 12));
+		btnNewButton_1.setBounds(119, 311, 85, 23);
+		panel.add(btnNewButton_1);
+		
+	}
+}

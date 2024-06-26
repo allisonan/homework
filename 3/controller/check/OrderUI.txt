@@ -1,0 +1,125 @@
+package controller.check;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import model.CheckIn;
+import model.Member;
+import util.Cal;
+import controller.check.TicketUI;
+
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
+
+public class OrderUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private Component show;
+	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderUI frame = new OrderUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public OrderUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 128, 192));
+		panel.setBounds(0, 0, 436, 263);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Dream Air 訂單查詢系統");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel.setBounds(24, 10, 319, 57);
+		panel.add(lblNewLabel);
+	
+	/*產出訂單結果*/
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(24, 58, 389, 161);
+		panel.add(textArea);
+		contentPane.add(show);
+		
+		CheckIn ch=(CheckIn)(Cal.readFile("ticket.txt"));
+		Member m = (Member) (Cal.readFile("Member.txt"));
+		
+		System.out.println(ch);
+		System.out.println(m);
+		
+		String outputword=("Dream Air 訂購資訊"+
+		"\n---------------------------------------------------------------------------------"+
+		"\n會員姓名:" +m.getName()+
+		"\n去程機票：" +ch.getOutboundTicket()+
+        "\n回程機票：" +ch.getReturnTicket()+
+        "\n---------------------------------------------------------------------------------"+
+        "\n托運行李：" +ch.getLuggage()+
+        "\n特別餐點："+ ch.getMeal()+
+        "\n特別協助：" +ch.getHelp());
+		
+		((JLabel) show).setText(outputword);
+		
+		
+	/**/
+		JButton btnNewButton = new JButton("返回上一頁");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TicketUI t=new TicketUI();
+				t.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setBounds(24, 229, 124, 24);
+		panel.add(btnNewButton);
+		
+	/*確認訂單內容*/
+		JButton btnNewButton_1 = new JButton("確認訂單");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				FinishUI f=new FinishUI();
+				f.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(313, 229, 91, 24);
+		panel.add(btnNewButton_1);
+		
+		
+	}
+}

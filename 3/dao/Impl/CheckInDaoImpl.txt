@@ -1,0 +1,117 @@
+package dao.Impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import dao.DbConnection;
+import dao.CheckInDao;
+import model.CheckIn;
+
+public class CheckInDaoImpl implements CheckInDao{
+
+	public static void main(String[] args) {
+		System.out.println(new CheckInDaoImpl().selectById(10));
+
+	}
+
+	@Override
+	public void add(CheckIn c) {
+		Connection conn=DbConnection.getDb();
+		String SQL="insert into checkin(outboundTicket, returnTicket ,luggage,meal,help) values(?,?,?,?,?)";
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(SQL);
+			
+			ps.setString(1, c.getOutboundTicket());
+			ps.setString(2, c.getReturnTicket ());
+			ps.setString(3, c.getLuggage());
+			ps.setString(4, c.getMeal());
+			ps.setString(5, c.getHelp());
+			
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public List<CheckIn> selectAll() {
+		Connection conn=DbConnection.getDb();
+		String SQL="select * from checkin";
+		List<CheckIn> l=new ArrayList();
+		
+		try {
+			PreparedStatement ps = conn.prepareStatement(SQL);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				CheckIn c=new CheckIn();
+			
+				c.setOutboundTicket(rs.getString("outboundTicket"));
+				c.setReturnTicket(rs.getString("returnTicket"));
+				c.setLuggage(rs.getString("Luggage"));
+				c.setMeal(rs.getString("Meal"));
+				c.setHelp(rs.getString("Help"));
+				l.add(c);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return l;
+	}
+
+	@Override
+	public CheckIn selectById(int id) {
+		Connection conn=DbConnection.getDb();
+		String SQL="select * from checkIn where id=?";
+		CheckIn c=null;
+		
+		try {
+			PreparedStatement ps=conn.prepareStatement(SQL);
+			ps.setInt(1, id);
+			
+			ResultSet rs=ps.executeQuery();
+			
+			if(rs.next())
+			{
+				c=new CheckIn();
+				c.setId(rs.getInt("id"));
+				c.setOutboundTicket(rs.getString("outboundTicket"));
+				c.setReturnTicket(rs.getString("returnTicket"));
+				c.setLuggage(rs.getString("Luggage"));
+				c.setMeal(rs.getString("Meal"));
+				c.setHelp(rs.getString("Help"));;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return c;
+	}
+
+	@Override
+	public List<CheckIn> queryByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteid(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

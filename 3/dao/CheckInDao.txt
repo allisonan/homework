@@ -1,0 +1,24 @@
+package dao;
+
+import java.util.List;
+
+import model.CheckIn;
+import model.Member;
+
+public interface CheckInDao {
+	//create
+	void add(CheckIn c);
+	
+	
+	//read
+	List<CheckIn> selectAll();
+	CheckIn selectById(int id);
+	List<CheckIn> queryByName(String name);
+	
+	//update
+	
+	
+	
+	//delete
+	void deleteid(int id);
+}

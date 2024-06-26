@@ -1,0 +1,156 @@
+package controller.mbti;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+
+
+import java.awt.Color;
+import java.awt.Container;
+
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class MBTIUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private Container panel_3;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MBTIUI frame = new MBTIUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public MBTIUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 571, 416);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(183, 218, 249));
+		panel.setBounds(0, 0, 563, 64);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("MBTI 16型人格測試結果");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lblNewLabel.setBounds(144, 10, 290, 34);
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(254, 224, 249));
+		panel_1.setBounds(0, 60, 563, 323);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+	/*SJ group*/		
+		JButton SJ = new JButton("SJ 族群：社群主義者（ESTJ、ESFJ、ISTJ、ISFJ）");
+		SJ.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		SJ.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				SJUI tl=new SJUI();
+				tl.setVisible(true);
+				dispose();
+			}
+		});
+		SJ.setBounds(72, 154, 420, 32);
+		panel_1.add(SJ);
+		
+	/*SP group*/		
+		JButton SP = new JButton("SP 族群：現實主義者（ESTP、ESFP、ISTP、ISFP）");
+		SP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SPUI t=new SPUI();
+				t.setVisible(true);
+				dispose();
+			}
+		});
+		SP.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		SP.setBounds(72, 94, 420, 32);
+		panel_1.add(SP);
+	/*NT group*/	
+		JButton NT = new JButton("NT 族群：理性主義者（ENTJ、ENTP、INTJ、INTP）");
+		NT.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				NTUI t=new NTUI();
+				t.setVisible(true);
+				dispose();
+			}
+		});
+		NT.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		NT.setBounds(72, 32, 420, 32);
+		panel_1.add(NT);
+		
+	/*NF group*/		
+		JButton NF = new JButton("NF 族群：理想主義者（ENFJ、ENFP、INFJ、INFP）");
+		NF.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				NFUI t=new NFUI();
+				t.setVisible(true);
+				dispose();
+			}
+		});
+		NF.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		NF.setBounds(72, 212, 420, 32);
+		panel_1.add(NF);
+		
+	/*重新測驗*/		
+		JButton login = new JButton("返回重新測驗");
+		login.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				TestUI t=new TestUI();
+				t.setVisible(true);
+				dispose();
+			}
+		});
+		login.setBounds(194, 268, 160, 32);
+		panel_1.add(login);
+		login.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		
+	//Button exit	
+		JButton Exit = new JButton("測驗結束");
+		Exit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+				
+			}
+		});
+		Exit.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		Exit.setBounds(375, 268, 160, 32);
+		panel_1.add(Exit);
+	
+
+	}
+}

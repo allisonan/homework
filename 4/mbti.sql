@@ -1,0 +1,1 @@
+SELECT * FROM homework4.mbti;

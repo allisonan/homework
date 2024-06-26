@@ -1,0 +1,117 @@
+package dao.Impl; 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import dao.DbConnection;
+import dao.MBTIDao;
+import model.MBTI;
+
+public class MBTIDaoImpl implements MBTIDao {
+
+    @Override
+    public void add(MBTI mb) {
+        Connection conn = DbConnection.getDb();
+        String SQL = "INSERT INTO MBTI (memberno ,one, two, three, four) VALUES (?, ?, ?,?, ?)";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setString(1, mb.getMemberno());
+            ps.setString(2, mb.getOne());
+            ps.setString(3, mb.getTwo());
+            ps.setString(4, mb.getThree());
+            ps.setString(5, mb.getFour());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<MBTI> selectAll() {
+        Connection conn = DbConnection.getDb();
+        String SQL = "SELECT * FROM MBTI";
+        List<MBTI> list = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                MBTI mb = new MBTI();
+                mb.setOne(rs.getString("one"));
+                mb.setTwo(rs.getString("two"));
+                mb.setThree(rs.getString("three"));
+                mb.setFour(rs.getString("four"));
+                list.add(mb);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public MBTI selectById(int memberNo) {
+        Connection conn = DbConnection.getDb();
+        String SQL = "SELECT * FROM MBTI WHERE id=?";
+        MBTI mb = null;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1, memberNo);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                mb = new MBTI();
+                mb.setOne(rs.getString("one"));
+                mb.setTwo(rs.getString("two"));
+                mb.setThree(rs.getString("three"));
+                mb.setFour(rs.getString("four"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return mb;
+    }
+
+    public List<MBTI> queryByMemberNo(String memberno) {
+        Connection conn = DbConnection.getDb();
+        String SQL = "SELECT * FROM MBTI WHERE memberno=?";
+        List<MBTI> list = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setString(1, memberno);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                MBTI mb = new MBTI();
+                mb.setOne(rs.getString("one"));
+                mb.setTwo(rs.getString("two"));
+                mb.setThree(rs.getString("three"));
+                mb.setFour(rs.getString("four"));
+                list.add(mb);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public void update(MBTI mb) {
+        // Implement update method if needed
+    }
+
+	
+		
+}

@@ -1,0 +1,154 @@
+package controller;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
+
+import controller.check.TicketUI;
+import controller.member.AddMemberUI;
+import controller.member.LoginErrorUI;
+import controller.member.MemberManagmentUI;
+import dao.Impl.MemberDaoImpl;
+import model.Member;
+import util.Cal;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
+public class LoginUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	
+	private JPanel contentPane;
+	private JPasswordField password;
+	private final JPanel panel = new JPanel();
+	private JTextField memberID;
+	protected JLabel lblMessage;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginUI frame = new LoginUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 536, 372);
+		contentPane = new JPanel();
+		contentPane.setForeground(new Color(193, 193, 225));
+		contentPane.setBackground(new Color(255, 128, 192));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Dream Air ");
+		lblNewLabel.setBounds(32, 3, 298, 69);
+		lblNewLabel.setBackground(new Color(128, 0, 255));
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("會員登入");
+		lblNewLabel_1.setBounds(224, 58, 162, 69);
+		lblNewLabel_1.setForeground(new Color(64, 0, 64));
+		lblNewLabel_1.setFont(new Font("微軟正黑體", Font.BOLD, 28));
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("會員編號");
+		lblNewLabel_1_1.setBounds(93, 124, 115, 69);
+		lblNewLabel_1_1.setForeground(new Color(0, 0, 128));
+		lblNewLabel_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("會員密碼");
+		lblNewLabel_1_1_1.setBounds(93, 203, 115, 69);
+		lblNewLabel_1_1_1.setForeground(new Color(0, 0, 128));
+		lblNewLabel_1_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblNewLabel_1_1_1);
+		
+		memberID = new JTextField();
+		memberID.setBounds(218, 137, 130, 36);
+		contentPane.add(memberID);
+		memberID.setColumns(10);
+		
+		password = new JPasswordField();
+		password.setColumns(10);
+		password.setBounds(218, 221, 130, 36);
+		contentPane.add(password);
+	
+	/*登入*/	
+		JButton btnNewButton = new JButton("登入");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String MemberID=memberID.getText();
+				String Password=password.getText();
+				Member m=new MemberDaoImpl().queryMember(MemberID, Password);
+				
+				if(m!=null)
+				{
+					Cal.saveFile("member.txt", m);
+					TicketUI l=new TicketUI();
+					l.setVisible(true);
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "您的帳號或密碼錯誤，請重新輸入\n或註冊帳號");
+					/*
+					LoginErrorUI l=new LoginErrorUI();
+					l.setVisible(true);
+					dispose();*/
+				}
+				
+			}
+		});
+		btnNewButton.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		btnNewButton.setBounds(241, 288, 89, 23);
+		contentPane.add(btnNewButton);
+	
+	/*註冊*/	
+		JButton btnNewButton_1_1 = new JButton("註冊");
+		btnNewButton_1_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				AddMemberUI addMemberUI =new AddMemberUI();
+				addMemberUI.setVisible(true);
+				dispose();//關閉UI
+			}
+		});
+		btnNewButton_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		btnNewButton_1_1.setBounds(396, 74, 89, 23);
+		contentPane.add(btnNewButton_1_1);
+		 
+		
+	}
+}
+

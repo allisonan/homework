@@ -1,0 +1,139 @@
+package controller;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import model.Member;
+import dao.Impl.MemberDaoImpl;
+import util.Cal;
+import controller.mbti.TestUI;
+import controller.member.AddMemberUI;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class LoginUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField memberNoField;
+	private JTextField passwordField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginUI frame = new LoginUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 251);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 436, 70);
+		panel.setBackground(new Color(250, 209, 237));
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblTravelcom = new JLabel("MBTI 16型人格測試 簡易版");
+		lblTravelcom.setBounds(73, 10, 326, 55);
+		lblTravelcom.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		panel.add(lblTravelcom);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(160, 182, 239));
+		panel_1.setBounds(0, 67, 436, 151);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("memberno");
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblNewLabel.setBounds(48, 26, 89, 40);
+		panel_1.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("password");
+		lblPassword.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblPassword.setBounds(48, 84, 89, 40);
+		panel_1.add(lblPassword);
+		
+	/*登入會員*/
+		JButton btnLogin = new JButton("登入");
+		btnLogin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String memberNo = memberNoField.getText();
+				String password = passwordField.getText();
+				Member m = new MemberDaoImpl().queryMember(memberNo, password);
+				
+				if(m != null) {
+					try {
+						Cal.saveFile("member.txt", m);
+						TestUI testUI = new TestUI();
+						testUI.setVisible(true);
+						dispose();
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "您的帳號或密碼錯誤，請重新輸入\n或註冊帳號");
+				}
+			
+			}
+		});
+		btnLogin.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		btnLogin.setBounds(286, 35, 116, 23);
+		panel_1.add(btnLogin);
+		
+		memberNoField = new JTextField();
+		memberNoField.setBounds(142, 40, 96, 21);
+		panel_1.add(memberNoField);
+		memberNoField.setColumns(10);
+		
+		passwordField = new JTextField();
+		passwordField.setColumns(10);
+		passwordField.setBounds(142, 98, 96, 21);
+		panel_1.add(passwordField);
+		
+	/*新增會員*/		
+		JButton btnAddMember = new JButton("新增會員");
+		btnAddMember.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				AddMemberUI addMemberUI =new AddMemberUI();
+				addMemberUI.setVisible(true);
+				dispose();
+			}
+		});
+		btnAddMember.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		btnAddMember.setBounds(286, 93, 116, 23);
+		panel_1.add(btnAddMember);
+		
+	
+	}
+}

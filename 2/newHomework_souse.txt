@@ -1,0 +1,276 @@
+----------------------------------------------------------------------------*Homepage*-----------------------------------------------------------------
+package homework.o1;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class Homepage extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField cashText;
+	private JRadioButton memberButton;
+	private JButton check;
+	private JComboBox<String> item1;
+	private JComboBox<String> item2;
+	private JComboBox<String> item3;
+	private JComboBox<String> item4;
+	private JComboBox<String> item5;
+	private double totalAmount;
+	private double changeAmount;
+	private JTextArea outputshow;
+	private JTextArea exchangeshow;
+	private double sum;
+	
+
+
+//Button clear
+		JButton clearButton = new JButton("clear");
+		clearButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				User.setText("");
+		        Password.setText("");
+			}
+		});
+		clearButton.setFont(new Font("Yu Gothic UI Semilight", Font.BOLD, 16));
+		clearButton.setBounds(167, 230, 85, 23);
+		panel.add(clearButton);
+
+//Button login		
+		JButton login = new JButton("login");
+		login.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (User.getText().equals("123") && new String(((JPasswordField) Password).getPassword()).equals("000"))
+			{
+	                    OrderUI x = new OrderUI();
+	                    x.setVisible(true);
+	                    dispose();
+			} 
+			else 
+			{
+	                    lblMessage.setText("帳號密碼錯誤 請重新輸入");
+	         }
+			}
+		});
+		
+		login.setBounds(262, 223, 85, 23);
+		panel.add(login);
+	
+	}
+}
+
+
+----------------------------------------------------------------------------*Orderpage*----------------------------------------------------------------------------
+
+//找零.....	
+				JButton exchangeButton = new JButton("收款");
+				exchangeButton.addMouseListener(new MouseAdapter() {
+					 @Override	
+
+					public void mouseClicked(MouseEvent e) { {
+						
+						
+					
+						try {
+					        	System.out.println("取得SUM"+sum);
+								totalAmount = sum;
+								System.out.println("totalAmount:"+totalAmount);
+					            double cashAmount = Double.parseDouble(cashText.getText());
+						        System.out.println(cashAmount);
+					            double change = cashAmount - totalAmount;
+
+
+
+						        System.out.println(totalAmount);
+						        System.out.println(change);
+					           
+
+					    if (cashAmount < totalAmount) {
+					            exchangeshow.setText("付款金額不足！");
+					            return;
+					        }
+					    	
+					    
+					            int thousandBills =  (int) (change / 1000);
+					            int fiveHundredBills = (int) ((change % 1000) / 500);
+					            int hundredBills =  (int) ((change % 500) / 100);
+					            int fiftyCoins =  (int) ((change % 100) / 50);
+					            int tenCoins =  (int) ((change % 50) / 10);
+					            int fiveCoins =  (int) ((change % 10) / 5);
+					            int oneCoins =  (int) (change % 5);
+
+
+					            exchangeshow.setText(
+			                        "Welcome Gym 付款資訊" +
+			                        
+			                        "\n應找金額:"+ change +
+			                        "\n---------------------------"+
+			                       	"\n千元鈔票數量：" + thousandBills +
+			                        "\n伍百元鈔票數量：" + fiveHundredBills +
+			                        "\n百元鈔票數量：" + hundredBills +
+			                        "\n50元零錢數量：" + fiftyCoins +
+			                        "\n10元零錢數量：" + tenCoins +
+			                        "\n5元零錢數量：" + fiveCoins +
+			                        "\n1元零錢數量：" + oneCoins
+			                       
+			                    );
+			                } catch (NumberFormatException ex) {
+			                   
+			                    exchangeshow.setText("請輸入有效的金額");
+			                   
+			                } 
+			 
+						
+					}}}
+			            
+			        );
+			        
+			        
+				exchangeButton.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+				exchangeButton.setBounds(57, 100, 85, 23);
+				panel_2.add(exchangeButton);	
+		
+				
+
+
+
+
+
+//課程下拉選單
+		boxingcomboBox = new JComboBox<>(new String[]{"請選擇堂數","0", "1","2","3","4","5"});
+		boxingcomboBox.setBounds(239, 69, 104, 23);
+		boxingcomboBox.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		boxingcomboBox.setBackground(new Color(255, 255, 255));
+		panel_1.add(boxingcomboBox);
+		
+		trainingcomboBox = new JComboBox<>(new String[]{"請選擇堂數","0", "1","2","3","4","5"});
+		trainingcomboBox.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		trainingcomboBox.setBackground(new Color(255, 255, 255));
+		trainingcomboBox.setBounds(239, 108, 104, 23);
+		panel_1.add(trainingcomboBox);
+		
+		yogacomboBox = new JComboBox<>(new String[]{"請選擇堂數","0", "1","2","3","4","5"});
+		yogacomboBox.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		yogacomboBox.setBackground(new Color(255, 255, 255));
+		yogacomboBox.setBounds(239, 155, 104, 23);
+		panel_1.add(yogacomboBox);
+		
+		pilatescomboBox = new JComboBox<>(new String[]{"請選擇堂數","0", "1","2","3","4","5"});
+		pilatescomboBox.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		pilatescomboBox.setBackground(new Color(255, 255, 255));
+		pilatescomboBox.setForeground(new Color(0, 0, 0));
+		pilatescomboBox.setBounds(239, 196, 104, 23);
+		panel_1.add(pilatescomboBox);
+		
+		dancecomboBox = new JComboBox<>(new String[]{"請選擇堂數","0", "1","2","3","4","5"});
+		dancecomboBox.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		dancecomboBox.setBackground(new Color(255, 255, 255));
+		dancecomboBox.setBounds(239, 237, 104, 23);
+		panel_1.add(dancecomboBox);
+		
+
+//Button sum..done
+		JButton check = new JButton("合計");
+		check.setBounds(239, 273, 104, 23);
+		check.addMouseListener(new MouseAdapter() {
+			
+			
+		private double sum;
+		private int getcheck;
+		private AbstractButton memberRadioButton;
+
+		@Override
+			public void mouseClicked(MouseEvent e) {
+			 
+			int boxingClasses = Integer.parseInt(boxingcomboBox.getSelectedItem().toString());    
+			int trainingClasses = Integer.parseInt(trainingcomboBox.getSelectedItem().toString());
+            int yogaClasses = Integer.parseInt(yogacomboBox.getSelectedItem().toString());
+            int pilatesClasses = Integer.parseInt(pilatescomboBox.getSelectedItem().toString());
+            int danceClasses = Integer.parseInt(dancecomboBox.getSelectedItem().toString());
+
+            
+			
+			double boxingCost = boxingClasses * 500;
+            double trainingCost = trainingClasses * 500;
+            double yogaCost = yogaClasses * 600;
+            double pilatesCost = pilatesClasses * 600;
+            double danceCost = danceClasses * 500;
+             
+             sum = boxingCost + trainingCost + yogaCost + pilatesCost + danceCost;
+						
+						if (memberButton.isSelected()) {
+		                	 sum *= 0.9;
+		                }
+
+		                if (getcheck >= 5000) {
+		                	sum  *= 0.9;
+		                }
+		                outputshow.setText( "Welcome Gym 訂購課程清單"+
+		                		"\n-----------------------------"+
+		                		"\n拳擊有氧堂數:" + boxingClasses + 
+		                		"\n肌力訓練堂數：" + trainingClasses +
+		                        "\n空中瑜珈堂數：" + yogaClasses +
+		                        "\n皮拉提斯堂數：" + pilatesClasses +
+		                        "\n流行舞蹈堂數：" + danceClasses +
+		                        "\n是否為會員：" + (memberButton.isSelected() ? "是" : "否") +
+		                        "\n總金額：" + sum);
+	          
+						
+					}
+				});
+
+
+//Button print
+				JButton print = new JButton("列印");
+				print.setBounds(239, 160, 104, 23);
+				print.addMouseListener(new MouseAdapter() {
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						 try
+						 {
+							 show.print();
+						 }
+						 catch(PrinterException el)
+						 {
+							 el.printStackTrace();
+						 }
+					}
+				});
+				panel_3.setLayout(null);
+				print.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+				print.setBackground(new Color(0, 172, 172));
+				panel_3.add(print);
+
+
+//Button exit
+				JButton exit = new JButton("離開");
+				exit.setBounds(416, 160, 104, 23);
+				exit.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						System.exit(0);
+					}
+				});
+				exit.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+				exit.setBackground(new Color(0, 172, 172));
+				panel_3.add(exit);
+	}
+}
+
+		

@@ -1,0 +1,65 @@
+package model;
+
+import java.io.Serializable;
+
+public class CheckIn implements Serializable{
+	private Integer id;
+	
+	private String outboundTicket;
+	private String returnTicket;
+	private String luggage;
+	private String meal;
+	private String help;
+	public CheckIn() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CheckIn(String outboundTicket, String returnTicket, String  luggage, String  meal, String  help) {
+		super();
+		
+		this.outboundTicket = outboundTicket;
+		this.returnTicket = returnTicket;		
+		this.luggage = luggage;
+		this.meal = meal;
+		this.help = help;
+	}
+	public Integer getId() {
+		return id;
+	}
+	
+	public String getOutboundTicket() {
+		return outboundTicket;
+	}
+	public void setOutboundTicket(String outboundTicket) {
+		this.outboundTicket = outboundTicket;
+	}
+	public String getReturnTicket() {
+		return returnTicket;
+	}
+	public void setReturnTicket(String returnTicket) {
+		this.returnTicket = returnTicket;
+	}
+	public String getLuggage() {
+		return luggage;
+	}
+	public void setLuggage(String luggage) {
+		this.luggage = luggage;
+	}
+	public String getMeal() {
+		return meal;
+	}
+	public void setMeal(String meal) {
+		this.meal = meal;
+	}
+	public String getHelp() {
+		return help;
+	}
+	public void setHelp(String help) {
+		this.help = help;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
+}

@@ -1,0 +1,118 @@
+package controller.member;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import dao.Impl.MemberDaoImpl;
+import model.Member;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Font;
+import javax.swing.UIManager;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.border.EmptyBorder;
+
+public class AddMemberUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField memberNoField;
+	private JTextField passwordField; 
+	private JComboBox<String> bloodtypeComboBox; 
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddMemberUI frame = new AddMemberUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AddMemberUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 434, 236);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(186, 220, 217));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("MBTI 會員註冊系統");
+		lblNewLabel.setBounds(105, 10, 248, 46);
+		lblNewLabel.setForeground(new Color(0, 0, 0));
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblPassword = new JLabel("密碼");
+		lblPassword.setBounds(195, 72, 106, 46);
+		lblPassword.setForeground(new Color(0, 0, 160));
+		lblPassword.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblPassword);
+		
+		JLabel lblBloodtype = new JLabel("血型");
+		lblBloodtype.setBounds(25, 122, 106, 46);
+		lblBloodtype.setForeground(new Color(0, 0, 160));
+		lblBloodtype.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblBloodtype);
+		
+		memberNoField = new JTextField();
+		memberNoField.setBounds(89, 77, 96, 35);
+		contentPane.add(memberNoField);
+		memberNoField.setColumns(10);
+		
+		passwordField = new JTextField();
+		passwordField.setBounds(264, 78, 119, 35);
+		contentPane.add(passwordField);
+		passwordField.setColumns(10);
+		
+		JButton btnRegister = new JButton("註冊");
+		btnRegister.setBounds(274, 128, 85, 35);
+		btnRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String memberNo = memberNoField.getText(); 
+				String password = passwordField.getText(); 
+				String bloodType = (String) bloodtypeComboBox.getSelectedItem(); 
+				
+				Member member = new Member(memberNo,password,bloodType);
+				
+				new MemberDaoImpl().add(member);
+				AddMemberSuccessUI successUI = new AddMemberSuccessUI();
+				successUI.setVisible(true);
+				dispose();
+			}
+		});
+		btnRegister.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		contentPane.add(btnRegister);
+		
+		JLabel lblMemberNo = new JLabel("帳號");
+		lblMemberNo.setBounds(25, 78, 106, 35);
+		lblMemberNo.setForeground(new Color(0, 0, 160));
+		lblMemberNo.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		contentPane.add(lblMemberNo);
+		
+		bloodtypeComboBox = new JComboBox<>(new String[] {"A", "B", "O", "AB"});
+		bloodtypeComboBox.setBounds(89, 128, 96, 28);
+		contentPane.add(bloodtypeComboBox);
+	}
+}

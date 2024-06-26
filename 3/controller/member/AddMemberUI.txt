@@ -1,0 +1,174 @@
+package controller.member;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import dao.Impl.MemberDaoImpl;
+import model.Member;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.UIManager;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class AddMemberUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField name;
+	private JTextField memberID;
+	private JTextField password;
+	private JTextField phone;
+	private JTextField nickname;
+	private JTextField email;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddMemberUI frame = new AddMemberUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AddMemberUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 434, 516);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 128, 192));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Dream Air");
+		lblNewLabel.setBounds(29, 10, 125, 46);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lblNewLabel.setBackground(new Color(240, 240, 240));
+		contentPane.add(lblNewLabel);
+		
+		JLabel lbljghkcjom = new JLabel("註冊會員");
+		lbljghkcjom.setBounds(167, 62, 167, 46);
+		lbljghkcjom.setForeground(new Color(64, 0, 64));
+		lbljghkcjom.setFont(new Font("微軟正黑體", Font.BOLD, 28));
+		lbljghkcjom.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom);
+		
+		JLabel lbljghkcjom_1 = new JLabel("會員姓名");
+		lbljghkcjom_1.setBounds(49, 124, 106, 46);
+		lbljghkcjom_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1);
+		
+		JLabel lbljghkcjom_1_1 = new JLabel("會員暱稱");
+		lbljghkcjom_1_1.setBounds(48, 171, 106, 46);
+		lbljghkcjom_1_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1_1);
+		
+		JLabel lbljghkcjom_1_1_1 = new JLabel("會員代號");
+		lbljghkcjom_1_1_1.setBounds(49, 216, 106, 46);
+		lbljghkcjom_1_1_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1_1_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1_1_1);
+		
+		JLabel lbljghkcjom_1_1_1_1 = new JLabel("會員密碼");
+		lbljghkcjom_1_1_1_1.setBounds(49, 261, 106, 46);
+		lbljghkcjom_1_1_1_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1_1_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1_1_1_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1_1_1_1);
+		
+		JLabel lbljghkcjom_1_1_1_1_1_1 = new JLabel("會員電話");
+		lbljghkcjom_1_1_1_1_1_1.setBounds(49, 304, 106, 46);
+		lbljghkcjom_1_1_1_1_1_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1_1_1_1_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1_1_1_1_1_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1_1_1_1_1_1);
+		
+		JLabel lbljghkcjom_1_1_1_1_1_1_1 = new JLabel("電子信箱");
+		lbljghkcjom_1_1_1_1_1_1_1.setBounds(49, 346, 106, 46);
+		lbljghkcjom_1_1_1_1_1_1_1.setForeground(new Color(0, 0, 160));
+		lbljghkcjom_1_1_1_1_1_1_1.setFont(new Font("微軟正黑體", Font.BOLD, 24));
+		lbljghkcjom_1_1_1_1_1_1_1.setBackground(UIManager.getColor("Button.background"));
+		contentPane.add(lbljghkcjom_1_1_1_1_1_1_1);
+		
+		name = new JTextField();
+		name.setBounds(152, 134, 226, 35);
+		contentPane.add(name);
+		name.setColumns(10);
+		
+		memberID = new JTextField();
+		memberID.setBounds(152, 227, 226, 35);
+		memberID.setColumns(10);
+		contentPane.add(memberID);
+		
+		password = new JTextField();
+		password.setBounds(152, 272, 226, 35);
+		password.setColumns(10);
+		contentPane.add(password);
+		
+		phone = new JTextField();
+		phone.setBounds(152, 315, 226, 35);
+		phone.setColumns(10);
+		contentPane.add(phone);
+		
+		nickname = new JTextField();
+		nickname.setBounds(152, 180, 226, 35);
+		nickname.setColumns(10);
+		contentPane.add(nickname);
+		
+		email = new JTextField();
+		email.setBounds(152, 359, 226, 35);
+		email.setColumns(10);
+		contentPane.add(email);
+	
+	/*註冊帳號*/	
+		JButton btnNewButton = new JButton("註冊");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String Name=name.getText();
+				String Nickname=nickname.getText();
+				String MemberID=memberID.getText();
+				String Password=password.getText();
+				String Phone=phone.getText();		
+				String Email=email.getText();
+								
+				Member m = new Member(Name,Nickname,MemberID,Password,Phone,Email);
+				
+				
+				new MemberDaoImpl().addMember(m);
+				AddMemberSuccessUI l=new AddMemberSuccessUI();
+				l.setVisible(true);
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("微軟正黑體", Font.BOLD, 14));
+		btnNewButton.setBounds(184, 419, 85, 35);
+		contentPane.add(btnNewButton);
+	}
+
+}
